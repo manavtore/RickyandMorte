@@ -6,8 +6,8 @@ import {
   ActivityIndicator,
   TextInput,
   Button,
-  TouchableOpacity,
   Text,
+  TouchableOpacity,
 } from "react-native";
 import { IconButton } from "react-native-paper";
 import CharacterCard from "../cors/components/CharachterCard";
@@ -53,7 +53,8 @@ export default function DeadCharactersScreen() {
 
   useEffect(() => {
     fetchCharacters();
-  }, [status, species, gender, searchQuery]); 
+  }, [status, species, gender, searchQuery]);
+
   return (
     <View style={styles.container}>
       <View style={styles.filterContainer}>
@@ -75,17 +76,59 @@ export default function DeadCharactersScreen() {
       >
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Filter by:</Text>
-          <TouchableOpacity onPress={() => setSpecies("Human")}>
-            <Text style={styles.option}>Species: Human</Text>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              status === "alive" && styles.selectedFilter,
+            ]}
+            onPress={() => setStatus("alive")}
+          >
+            <Text style={styles.filterText}>Status: Alive</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setSpecies("Alien")}>
-            <Text style={styles.option}>Species: Alien</Text>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              status === "dead" && styles.selectedFilter,
+            ]}
+            onPress={() => setStatus("dead")}
+          >
+            <Text style={styles.filterText}>Status: Dead</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setGender("Male")}>
-            <Text style={styles.option}>Gender: Male</Text>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              species === "Human" && styles.selectedFilter,
+            ]}
+            onPress={() => setSpecies("Human")}
+          >
+            <Text style={styles.filterText}>Species: Human</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setGender("Female")}>
-            <Text style={styles.option}>Gender: Female</Text>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              species === "Alien" && styles.selectedFilter,
+            ]}
+            onPress={() => setSpecies("Alien")}
+          >
+            <Text style={styles.filterText}>Species: Alien</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              gender === "Male" && styles.selectedFilter,
+            ]}
+            onPress={() => setGender("Male")}
+          >
+            <Text style={styles.filterText}>Gender: Male</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              gender === "Female" && styles.selectedFilter,
+            ]}
+            onPress={() => setGender("Female")}
+          >
+            <Text style={styles.filterText}>Gender: Female</Text>
           </TouchableOpacity>
           <Button
             title="Apply Filters"
@@ -104,16 +147,21 @@ export default function DeadCharactersScreen() {
           data={characters}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                console.log("Navigating to CharacterDetails with ID:", item.id);
-                navigation.navigate("CharacterDetails", {
-                  characterId: item.id,
-                });
-              }}
-            >
+            <View>
+              <Button
+                title="View Details"
+                onPress={() => {
+                  console.log(
+                    "Navigating to CharacterDetails with ID:",
+                    item.id
+                  );
+                  navigation.navigate("CharacterDetails", {
+                    characterId: item.id,
+                  });
+                }}
+              />
               <CharacterCard character={item} />
-            </TouchableOpacity>
+            </View>
           )}
         />
       )}
@@ -163,8 +211,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 15,
   },
-  option: {
+  filterButton: {
+    padding: 10,
+    borderRadius: 10,
+    marginVertical: 5,
+    backgroundColor: "#e0e0e0",
+  },
+  selectedFilter: {
+    backgroundColor: "#007BFF",
+  },
+  filterText: {
     fontSize: 16,
-    paddingVertical: 10,
+    color: "#000",
   },
 });
