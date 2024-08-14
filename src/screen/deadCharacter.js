@@ -10,10 +10,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { IconButton } from "react-native-paper";
-import CharacterCard from "../cors/components/CharacterCard";
 import axios from "axios";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
+import CharacterCard from "../utlis/components/CharacterCard";
 
 export default function DeadCharactersScreen() {
   const [characters, setCharacters] = useState([]);

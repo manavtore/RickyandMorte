@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet,ActivityIndicator } from "react-native";
-import CharacterCard from "../cors/components/CharacterCard";
+import { View, FlatList, StyleSheet ,ActivityIndicator } from "react-native";
 import axios from "axios";
-
-export default function AllCharactersScreen() {
+import CharacterCard from "../utlis/components/CharacterCard";
+export default function AliveCharactersScreen() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [status, setStatus] = useState("dead");
+  const [species, setSpecies] = useState("");
+  const [gender, setGender] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
+  
+   const toggleModal = () => {
+     setModalVisible(!isModalVisible);
+   };
   useEffect(() => {
     axios
-      .get("https://rickandmortyapi.com/api/character")
+      .get("https://rickandmortyapi.com/api/character/?status=alive")
       .then((response) => {
         setCharacters(response.data.results);
-          setLoading(false); 
+        setLoading(false); 
       }
       )
       .catch((error) => console.error(error));
@@ -21,7 +28,9 @@ export default function AllCharactersScreen() {
   return (
     <View style={styles.container}>
       {loading ? (
-        <ActivityIndicator size="large" color="#00ff00" />
+        <View>
+            <ActivityIndicator size="large"  color="#00ff00"  />
+        </View>
       ) : (
         <FlatList
           data={characters}

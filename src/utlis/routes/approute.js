@@ -5,6 +5,8 @@ import DeadCharactersScreen from "../../screen/deadCharacter";
 import AliveCharactersScreen from "../../screen/aliveCharacter";
 import CharacterDetailScreen from "../../screen/characterDetail";
 
+
+
 const RootStack = createStackNavigator();
 const CharacterStack = createStackNavigator();
 
