@@ -6,9 +6,11 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
+  ImageBackground
 } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
+import RickyImage from "../../assets/ricky3.jpeg";
 
 const CharacterDetailScreen = ({ route }) => {
   const { characterId } = route.params;
@@ -16,6 +18,7 @@ const CharacterDetailScreen = ({ route }) => {
   const [loading, setLoading] = useState(true);
  
   useEffect(() => {
+
     const fetchCharacter = async () => {
       try {
         const response = await axios.get(
@@ -41,23 +44,25 @@ const CharacterDetailScreen = ({ route }) => {
   }
 
  return (
-   <ScrollView style={styles.container}>
-     <Image source={{ uri: character.image }} style={styles.image} />
-     <Text style={styles.name}>{character.name}</Text>
-     <Text style={styles.detail}>Status: {character.status}</Text>
-     <Text style={styles.detail}>Species: {character.species}</Text>
-     <Text style={styles.detail}>Gender: {character.gender}</Text>
-     <Text style={styles.detail}>Origin: {character.origin.name}</Text>
-     <Text style={styles.episodesTitle}>Episodes:</Text>
-     {character.episode.map((episodeUrl, index) => {
-       const episodeNumber = episodeUrl.split("/").pop();
-       return (
-         <Text key={index} style={styles.episode}>
-           Episode {episodeNumber}
-         </Text>
-       );
-     })}
-   </ScrollView>
+   <ImageBackground source={RickyImage} style={styles.container}>
+     <ScrollView style={styles.container}>
+       <Image source={{ uri: character.image }} style={styles.image} />
+       <Text style={styles.name}>{character.name}</Text>
+       <Text style={styles.detail}>Status: {character.status}</Text>
+       <Text style={styles.detail}>Species: {character.species}</Text>
+       <Text style={styles.detail}>Gender: {character.gender}</Text>
+       <Text style={styles.detail}>Origin: {character.origin.name}</Text>
+       <Text style={styles.episodesTitle}>Episodes:</Text>
+       {character.episode.map((episodeUrl, index) => {
+         const episodeNumber = episodeUrl.split("/").pop();
+         return (
+           <Text key={index} style={styles.episode}>
+             Episode {episodeNumber}
+           </Text>
+         );
+       })}
+     </ScrollView>
+   </ImageBackground>
  );
 
 };

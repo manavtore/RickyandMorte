@@ -8,12 +8,14 @@ import {
   Button,
   Text,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { IconButton } from "react-native-paper";
 import axios from "axios";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
 import CharacterCard from "../utlis/components/CharacterCard";
+import RickyImage from "../../assets/ricky3.jpeg";
 
 export default function DeadCharactersScreen() {
   const [characters, setCharacters] = useState([]);
@@ -55,104 +57,106 @@ export default function DeadCharactersScreen() {
   }, [status, species, gender, searchQuery]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.filterContainer}>
-        <IconButton icon="filter" size={27} onPress={toggleModal} />
-        <TextInput
-          style={styles.input}
-          placeholder="Search by name"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-        <IconButton icon="magnify" size={27} onPress={fetchCharacters} />
-      </View>
-
-      <Modal
-        isVisible={isModalVisible}
-        onSwipeComplete={toggleModal}
-        swipeDirection="left"
-        style={styles.modal}
-      >
-        <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Filter by:</Text>
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              status === "alive" && styles.selectedFilter,
-            ]}
-            onPress={() => setStatus("alive")}
-          >
-            <Text style={styles.filterText}>Status: Alive</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              status === "dead" && styles.selectedFilter,
-            ]}
-            onPress={() => setStatus("dead")}
-          >
-            <Text style={styles.filterText}>Status: Dead</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              species === "Human" && styles.selectedFilter,
-            ]}
-            onPress={() => setSpecies("Human")}
-          >
-            <Text style={styles.filterText}>Species: Human</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              species === "Alien" && styles.selectedFilter,
-            ]}
-            onPress={() => setSpecies("Alien")}
-          >
-            <Text style={styles.filterText}>Species: Alien</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              gender === "Male" && styles.selectedFilter,
-            ]}
-            onPress={() => setGender("Male")}
-          >
-            <Text style={styles.filterText}>Gender: Male</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              gender === "Female" && styles.selectedFilter,
-            ]}
-            onPress={() => setGender("Female")}
-          >
-            <Text style={styles.filterText}>Gender: Female</Text>
-          </TouchableOpacity>
-          <Button
-            title="Apply Filters"
-            onPress={() => {
-              fetchCharacters();
-              toggleModal();
-            }}
+    <ImageBackground source={RickyImage} style={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.filterContainer}>
+          <IconButton icon="filter" size={27} onPress={toggleModal} />
+          <TextInput
+            style={styles.input}
+            placeholder="Search by name"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
           />
+          <IconButton icon="magnify" size={27} onPress={fetchCharacters} />
         </View>
-      </Modal>
 
-      {loading ? (
-        <ActivityIndicator size="large" color="#00ff00" />
-      ) : (
-        <FlatList
-          data={characters}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View>
-              <CharacterCard character={item} />
-            </View>
-          )}
-        />
-      )}
-    </View>
+        <Modal
+          isVisible={isModalVisible}
+          onSwipeComplete={toggleModal}
+          swipeDirection="left"
+          style={styles.modal}
+        >
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Filter by:</Text>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                status === "alive" && styles.selectedFilter,
+              ]}
+              onPress={() => setStatus("alive")}
+            >
+              <Text style={styles.filterText}>Status: Alive</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                status === "dead" && styles.selectedFilter,
+              ]}
+              onPress={() => setStatus("dead")}
+            >
+              <Text style={styles.filterText}>Status: Dead</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                species === "Human" && styles.selectedFilter,
+              ]}
+              onPress={() => setSpecies("Human")}
+            >
+              <Text style={styles.filterText}>Species: Human</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                species === "Alien" && styles.selectedFilter,
+              ]}
+              onPress={() => setSpecies("Alien")}
+            >
+              <Text style={styles.filterText}>Species: Alien</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                gender === "Male" && styles.selectedFilter,
+              ]}
+              onPress={() => setGender("Male")}
+            >
+              <Text style={styles.filterText}>Gender: Male</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                gender === "Female" && styles.selectedFilter,
+              ]}
+              onPress={() => setGender("Female")}
+            >
+              <Text style={styles.filterText}>Gender: Female</Text>
+            </TouchableOpacity>
+            <Button
+              title="Apply Filters"
+              onPress={() => {
+                fetchCharacters();
+                toggleModal();
+              }}
+            />
+          </View>
+        </Modal>
+
+        {loading ? (
+          <ActivityIndicator size="large" color="#00ff00" />
+        ) : (
+          <FlatList
+            data={characters}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View>
+                <CharacterCard character={item} />
+              </View>
+            )}
+          />
+        )}
+      </View>
+    </ImageBackground>
   );
 }
 
@@ -160,6 +164,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
   },
   filterContainer: {
     flexDirection: "row",
