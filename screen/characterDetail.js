@@ -40,22 +40,26 @@ const CharacterDetailScreen = ({ route }) => {
     return <Text>No character data found</Text>;
   }
 
-  return (
-    <ScrollView style={styles.container}>
-      <Image source={{ uri: character.image }} style={styles.image} />
-      <Text style={styles.name}>{character.name}</Text>
-      <Text style={styles.detail}>Status: {character.status}</Text>
-      <Text style={styles.detail}>Species: {character.species}</Text>
-      <Text style={styles.detail}>Gender: {character.gender}</Text>
-      <Text style={styles.detail}>Origin: {character.origin.name}</Text>
-      <Text style={styles.episodesTitle}>Episodes:</Text>
-      {character.episode.map((episodeUrl, index) => (
-        <Text key={index} style={styles.episode}>
-          {episodeUrl}
-        </Text>
-      ))}
-    </ScrollView>
-  );
+ return (
+   <ScrollView style={styles.container}>
+     <Image source={{ uri: character.image }} style={styles.image} />
+     <Text style={styles.name}>{character.name}</Text>
+     <Text style={styles.detail}>Status: {character.status}</Text>
+     <Text style={styles.detail}>Species: {character.species}</Text>
+     <Text style={styles.detail}>Gender: {character.gender}</Text>
+     <Text style={styles.detail}>Origin: {character.origin.name}</Text>
+     <Text style={styles.episodesTitle}>Episodes:</Text>
+     {character.episode.map((episodeUrl, index) => {
+       const episodeNumber = episodeUrl.split("/").pop();
+       return (
+         <Text key={index} style={styles.episode}>
+           Episode {episodeNumber}
+         </Text>
+       );
+     })}
+   </ScrollView>
+ );
+
 };
 
 const styles = StyleSheet.create({

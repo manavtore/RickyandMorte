@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList, StyleSheet ,ActivityIndicator } from "react-native";
-import CharacterCard from "../cors/components/CharachterCard";
+import CharacterCard from "../cors/components/CharacterCard";
 import axios from "axios";
 
 export default function AliveCharactersScreen() {

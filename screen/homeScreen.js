@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import AppRoutes from "../cors/routes/approute"
 
 
 const HomeScreen = () => {
@@ -16,23 +18,26 @@ const HomeScreen = () => {
 
       <TouchableOpacity
         style={styles.card}
-        onPress={()=>{
-            navigation.navigate("allCharacter");
+        onPress={() => {
+          navigation.navigate("AllCharacters");
         }}
       >
         <Text style={styles.cardText}>All Characters</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.card} onPress={()=>{
-         navigation.navigate("aliveCharcter");
-      }}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => {
+          navigation.navigate("AliveCharacters");
+        }}
+      >
         <Text style={styles.cardText}>Alive Characters</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.card}
-        onPress={() =>{
-             navigation.navigate("deadCharacter");
+        onPress={() => {
+          navigation.navigate("DeadCharacters");
         }}
       >
         <Text style={styles.cardText}>Dead Characters</Text>

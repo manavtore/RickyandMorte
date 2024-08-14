@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { IconButton } from "react-native-paper";
-import CharacterCard from "../cors/components/CharachterCard";
+import CharacterCard from "../cors/components/CharacterCard";
 import axios from "axios";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
@@ -148,18 +148,6 @@ export default function DeadCharactersScreen() {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View>
-              <Button
-                title="View Details"
-                onPress={() => {
-                  console.log(
-                    "Navigating to CharacterDetails with ID:",
-                    item.id
-                  );
-                  navigation.navigate("CharacterDetails", {
-                    characterId: item.id,
-                  });
-                }}
-              />
               <CharacterCard character={item} />
             </View>
           )}
