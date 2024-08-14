@@ -24,7 +24,6 @@ export default function DeadCharactersScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const navigation = useNavigation();
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
