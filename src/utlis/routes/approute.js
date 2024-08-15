@@ -5,32 +5,7 @@ import DeadCharactersScreen from "../../screen/deadCharacter";
 import AliveCharactersScreen from "../../screen/aliveCharacter";
 import CharacterDetailScreen from "../../screen/characterDetail";
 
-
-
 const RootStack = createStackNavigator();
-const CharacterStack = createStackNavigator();
-
-function CharacterStackScreen({ type }) {
-  return (
-    <CharacterStack.Navigator>
-      <CharacterStack.Screen
-        name={`${type}Characters`}
-        component={
-          type === "Alive"
-            ? AliveCharactersScreen
-            : type === "Dead"
-            ? DeadCharactersScreen
-            : AllCharactersScreen
-        }
-      />
-      <CharacterStack.Screen
-        name="CharacterDetail"
-        component={CharacterDetailScreen}
-        options={{ title: "Character Detail" }}
-      />
-    </CharacterStack.Navigator>
-  );
-}
 
 export function RootStackScreen() {
   return (
@@ -42,18 +17,20 @@ export function RootStackScreen() {
       />
       <RootStack.Screen
         name="AliveCharacters"
-        component={() => <CharacterStackScreen type="Alive" />}
-        options={{ headerShown: false }}
+        component={AliveCharactersScreen}
       />
       <RootStack.Screen
         name="DeadCharacters"
-        component={() => <CharacterStackScreen type="Dead" />}
-        options={{ headerShown: false }}
+        component={DeadCharactersScreen}
+      />
+      <RootStack.Screen 
+      name="AllCharacters" 
+      component={AllCharactersScreen}
       />
       <RootStack.Screen
-        name="AllCharacters"
-        component={() => <CharacterStackScreen type="All" />}
-        options={{ headerShown: false }}
+        name="CharacterDetail"
+        component={CharacterDetailScreen}
+        options={{ title: "Character Detail" }}
       />
     </RootStack.Navigator>
   );
